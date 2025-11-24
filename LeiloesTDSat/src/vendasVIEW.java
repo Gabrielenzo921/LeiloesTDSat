@@ -171,3 +171,5 @@ public class vendasVIEW extends javax.swing.JFrame {
     private javax.swing.JTable listaVendas;
     // End of variables declaration//GEN-END:variables
 }
+
+// Tela finalizada para entrega
