@@ -1,5 +1,6 @@
 
 import java.util.ArrayList;
+import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 
 /*
@@ -136,17 +137,24 @@ public class listagemVIEW extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btnVenderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVenderActionPerformed
-        String id = id_produto_venda.getText();
+        int linhaSelecionada = listaProdutos.getSelectedRow(); // Verifique se o nome da sua tabela é listaProdutos ou jTable1
+    
+    if (linhaSelecionada >= 0) {
+        String idString = listaProdutos.getValueAt(linhaSelecionada, 0).toString();
+        int id = Integer.parseInt(idString);
         
         ProdutosDAO produtosdao = new ProdutosDAO();
+        produtosdao.venderProduto(id);
         
-        //produtosdao.venderProduto(Integer.parseInt(id));
-        listarProdutos();
+        listarProdutos(); // Atualiza a tela para mostrar que foi vendido
+    } else {
+        JOptionPane.showMessageDialog(null, "Selecione um produto para vender.");
+    }
     }//GEN-LAST:event_btnVenderActionPerformed
 
     private void btnVendasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVendasActionPerformed
-        //vendasVIEW vendas = new vendasVIEW(); 
-        //vendas.setVisible(true);
+        vendasVIEW vendas = new vendasVIEW(); 
+        vendas.setVisible(true);
     }//GEN-LAST:event_btnVendasActionPerformed
 
     private void btnVoltarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btnVoltarActionPerformed
@@ -181,10 +189,8 @@ public class listagemVIEW extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new listagemVIEW().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new listagemVIEW().setVisible(true);
         });
     }
 
